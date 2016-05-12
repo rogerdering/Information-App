@@ -1,9 +1,12 @@
 doctype html
 html
-  head
-  body
-    h2 User List
-    each user in users
-      p= user.firstname
-      p= user.lastname
-      p= user.email
+	head
+	body
+		a(href='/new') Create a new user 
+		br
+		a(href='/search') Search through our extensive user list
+		h2 User List
+		each user in users
+			p= user.firstname
+			p= user.lastname
+			p= user.email
