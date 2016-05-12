@@ -1,0 +1,21 @@
+doctype html
+html
+	head
+	body
+		h2 Create New User
+		div
+			form(action='/new',method='post')
+				div(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='firstname') First Name: 
+							input(id='firstname',type='text',value='',placeholder='',name='firstname')
+				div(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='lastname') Last Name: 
+							input(id='lastname',type='text',value='',placeholder='',name='lastname')
+				div(data-role='fieldcontain')
+					fieldset(data-role='controlgroup')
+						label(for='email') Emailaddress: 
+							input(id='email',type='text',value='',placeholder='',name='email')
+				div(data-role='fieldcontain')   
+					input(type='submit',value='Add',data-transition='fade', data-theme='c')
