@@ -62,7 +62,7 @@ app.post ( '/search', function ( request, response ) {
       results.push(users[i].firstname, users[i].lastname, users[i].email)
     } 
   }
-  response.send("Search Completed: " + "<br>" + results)
+  response.send("Search Completed: " + "<br>" + "<br>" + results[0] + " " + results[1] + " " + results[2])
 } )
 
 var server = app.listen ( 3000, function ( ) {
