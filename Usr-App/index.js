@@ -9,6 +9,7 @@ var app = express ( )
 app.set ( 'views', '.' )
 app.set( 'view engine', 'jade' )
 
+app.use(express.static('static'));
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json());
 
@@ -51,18 +52,20 @@ app.post ( '/search', function ( request, response ) {
   var userList = fs.readFileSync ( './users.json' )
   var users = JSON.parse ( userList )
   var results = []
-  console.log(search)
-  for (var i = 0; i < users.length; i++) {
-    if (search == users[i].firstname) {
-      console.log("User " + search + " has been found.")
-      results.push(users[i].firstname, users[i].lastname, users[i].email)
-    } 
-    else if (search == users[i].lastname) {
-      console.log("User " + search + " has been found.")
-      results.push(users[i].firstname, users[i].lastname, users[i].email)
-    } 
-  }
-  response.send("Search Completed: " + "<br>" + "<br>" + results[0] + " " + results[1] + " " + results[2])
+ 
+
+console.log(search)
+for (var i = 0; i < users.length; i++) {
+  if (search == users[i].firstname) {
+    console.log("User " + search + " has been found.")
+    results.push(users[i].firstname, users[i].lastname, users[i].email)
+  } 
+  else if (search == users[i].lastname) {
+    console.log("User " + search + " has been found.")
+    results.push(users[i].firstname, users[i].lastname, users[i].email)
+  } 
+}
+response.send("Search Completed: " + "<br>" + results[0] + " " + results[1] + " " + results[2])
 } )
 
 var server = app.listen ( 3000, function ( ) {

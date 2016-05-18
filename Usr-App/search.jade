@@ -2,6 +2,9 @@ doctype html
 html
 	head
 		script(src="https://code.jquery.com/jquery-2.2.0.min.js")
+		script(src="custom.js")
+		script.
+			window.onload=getUsers
 	body
 		h2 Search Users
 			div
@@ -9,6 +12,7 @@ html
 					div(data-role='fieldcontain')
 						fieldset(data-role='controlgroup')
 							label(for='name') Name: 
-								input(id='name',type='text',value='',placeholder='',name='name')
+							input(type='text',id='ajax',list='json-datalist',placeholder='users',name='name')
+							datalist(id="json-datalist")
 					div(data-role='fieldcontain')   
 						input(type='submit',value='Search',data-transition='fade', data-theme='c')
