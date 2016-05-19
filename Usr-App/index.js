@@ -47,25 +47,48 @@ app.get ( '/search', function ( request, response ) {
   } )
 } )
 
+app.post( '/api', function ( request, response ) {
+  var srch = request.body.search
+  var userList = fs.readFileSync ( './users.json' )
+  var parsedData = JSON.parse ( userList )
+  var matchArray = []
+  for (var i = 0; i < srch.length; i++) {
+    for (var j = 0; j < parsedData.length; j++) {
+      for (var k = 0; k < parsedData[j].firstname.length; k++) {
+        if (srch[i] == parsedData[j].firstname[i]) {
+          var firstnamematch = parsedData[j].firstname 
+          matchArray.push ( firstnamematch )
+        }
+      }
+      for (var l = 0; l < parsedData[j].lastname.length; l++) {
+        if (srch[i] == parsedData[j].lastname[i]) {
+          var lastnamematch = parsedData[j].lastname 
+          matchArray.push ( lastnamematch )
+        }
+      }
+    }
+  }
+  response.send ( matchArray )
+})
+
+
 app.post ( '/search', function ( request, response ) { 
   var search = request.body.name
   var userList = fs.readFileSync ( './users.json' )
   var users = JSON.parse ( userList )
   var results = []
- 
-
-console.log(search)
-for (var i = 0; i < users.length; i++) {
-  if (search == users[i].firstname) {
-    console.log("User " + search + " has been found.")
-    results.push(users[i].firstname, users[i].lastname, users[i].email)
-  } 
-  else if (search == users[i].lastname) {
-    console.log("User " + search + " has been found.")
-    results.push(users[i].firstname, users[i].lastname, users[i].email)
-  } 
-}
-response.send("Search Completed: " + "<br>" + results[0] + " " + results[1] + " " + results[2])
+  console.log(search)
+  for (var i = 0; i < users.length; i++) {
+    if (search == users[i].firstname) {
+      console.log("User " + search + " has been found.")
+      results.push(users[i].firstname, users[i].lastname, users[i].email)
+    } 
+    else if (search == users[i].lastname) {
+      console.log("User " + search + " has been found.")
+      results.push(users[i].firstname, users[i].lastname, users[i].email)
+    } 
+  }
+  response.send("Search Completed: " + "<br>" + results[0] + " " + results[1] + " " + results[2])
 } )
 
 var server = app.listen ( 3000, function ( ) {

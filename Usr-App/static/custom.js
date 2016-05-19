@@ -1,12 +1,23 @@
-console.log("I am loaded")
-function getUsers() {
-    var url, usersOption;
-    url = './users.json';
+$(document).ready(function() {
+  $('#ajax').keyup(function() {
+    console.log("searching...")
+    var data = {
+      search: $( '#ajax' ).val()
+    }
+    $.post('/api', data, function(result) {
+      var lastVariableEver = result.filter(function(elem, pos) {
+        return result.indexOf(elem) == pos;
+      }); 
 
-    $.getJSON(url, function(data) {
-        $(data.osUsers).each(function() {
-            usersOption = "<option value=\"" + this.firstname + "\">" + this.lastname + "</option>";
-            $('#json-datalist').append(usersOption);
-        });
-    });
-}
+      $('#json-datalist').empty()
+
+      var usersOption = ''
+      for (var m = 0; m < lastVariableEver.length; m++) {
+        usersOption += '<option value="'+lastVariableEver[m]+'" />'
+      }
+      $('#json-datalist').append(usersOption)
+    })
+  })
+})
+
+
